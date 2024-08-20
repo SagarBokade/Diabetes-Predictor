@@ -7,8 +7,8 @@ body {
 
 form {
     margin: 20px auto;
-    padding: 20px;
-    background: white;
+    padding: 60px;
+    background: linear-gradient(rgba(251, 72, 72, 0.3),rgba(228, 178, 71, 0.3),rgba(39, 247, 230, 0.3));
     border-radius: 5px;
     max-width: 300px;
 }

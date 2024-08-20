@@ -1,30 +1,47 @@
-// Your web app's Firebase configuration
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
+    apiKey: "AIzaSyAuPN67icW0-q_E3ahKCcFOdOSXDyqoI6I",
+    authDomain: "diabetes-predictor-eb42f.firebaseapp.com",
+    projectId: "diabetes-predictor-eb42f",
+    storageBucket: "diabetes-predictor-eb42f.appspot.com",
+    messagingSenderId: "79892870307",
+    appId: "1:79892870307:web:12b3eddc866bd04a6dfb16",
+    measurementId: "G-X7J0N3CDV2"
+  };
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-// Handle Login
-document.getElementById('login-form').addEventListener('submit', function (e) {
+document.getElementById('auth-form').addEventListener('submit', function (e) {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const formTitle = document.getElementById('form-title').textContent;
 
-    auth.signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            window.location.href = "index.html"; // Redirect to main page
-        })
-        .catch(error => {
-            console.error("Error during sign-in:", error.message);
-        });
+    if (formTitle === "Sign In") {
+        // Sign In
+        auth.signInWithEmailAndPassword(email, password)
+            .then(userCredential => {
+                window.location.href = "index.html"; // Redirect to main page
+            })
+            .catch(error => {
+                console.error("Error during sign-in:", error.message);
+                alert("Error during sign-in: " + error.message);
+            });
+    } else if (formTitle === "Sign Up") {
+        // Sign Up
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(userCredential => {
+                window.location.href = "index.html"; // Redirect to main page
+            })
+            .catch(error => {
+                console.error("Error during sign-up:", error.message);
+                alert("Error during sign-up: " + error.message);
+            });
+    }
 });
 
 // Check if user is logged in (optional)
