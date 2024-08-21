@@ -22,7 +22,30 @@
     </form>
     <div id="result"></div>
 
-    <script src="public\assets\js\main.js"></script>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAuPN67icW0-q_E3ahKCcFOdOSXDyqoI6I",
+            authDomain: "diabetes-predictor-eb42f.firebaseapp.com",
+            projectId: "diabetes-predictor-eb42f",
+            storageBucket: "diabetes-predictor-eb42f.appspot.com",
+            messagingSenderId: "79892870307",
+            appId: "1:79892870307:web:12b3eddc866bd04a6dfb16",
+            measurementId: "G-X7J0N3CDV2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        export { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged };
+    </script>
+    
+    <!-- Main JS File -->
+    <script type="module" src="./assets/js/main.js"></script>
 </body>
 </html>
 

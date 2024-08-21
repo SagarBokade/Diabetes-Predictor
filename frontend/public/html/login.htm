@@ -9,21 +9,37 @@
 <body>
     <div class="form-container">
         <h1 id="form-title">Sign In</h1>
-
-        <!-- Sign In Form -->
-        <form id="auth-form">
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Password" required>
+        <form id="auth-form" action="index.html">
+            <input type="email" id="email" placeholder="Email" required autocomplete="email">
+            <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
             <button type="submit" id="submit-btn">Sign In</button>
         </form>
-
-        <!-- Toggle Link -->
-        <p id="toggle-link">Don't have an account? <a href="/frontend/public/html/signup.htm" id="toggle-auth">Sign Up</a></p>
+        <p id="toggle-link">Don't have an account? <a href="frontend\public\html\signup.htm" id="toggle-auth">Sign Up</a></p>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-    <script src="public/assets/js/firebase.js"></script>
-    <script src="public/assets/js/main.js"></script>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAuPN67icW0-q_E3ahKCcFOdOSXDyqoI6I",
+            authDomain: "diabetes-predictor-eb42f.firebaseapp.com",
+            projectId: "diabetes-predictor-eb42f",
+            storageBucket: "diabetes-predictor-eb42f.appspot.com",
+            messagingSenderId: "79892870307",
+            appId: "1:79892870307:web:12b3eddc866bd04a6dfb16",
+            measurementId: "G-X7J0N3CDV2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        export { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged };
+    </script>
+    
+    <!-- Main JS File -->
+    <script type="module" src="./assets/js/main.js"></script>
 </body>
 </html>

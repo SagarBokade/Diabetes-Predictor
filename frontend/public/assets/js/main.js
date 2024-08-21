@@ -1,3 +1,6 @@
+// Import necessary Firebase methods
+import { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from './firebase.js';
+
 const formTitle = document.getElementById('form-title');
 const submitBtn = document.getElementById('submit-btn');
 const toggleLink = document.getElementById('toggle-link');
@@ -5,33 +8,37 @@ const authForm = document.getElementById('auth-form');
 
 let isSignIn = true;
 
-document.getElementById('toggle-auth').addEventListener('click', function(e) {
+document.getElementById('toggle-auth').addEventListener('click', function (e) {
     e.preventDefault();
     toggleForm();
 });
 
-authForm.addEventListener('submit', function(e) {
+authForm.addEventListener('submit', function (e) {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
     if (isSignIn) {
         // Sign In
-        auth.signInWithEmailAndPassword(email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then(userCredential => {
-                window.location.href = "index.html"; // Redirect to main page
+                // Redirect to the main page
+                window.location.href = "../html/index.html"; // Ensure this path is correct
             })
             .catch(error => {
                 console.error("Error during sign-in:", error.message);
+                alert("Error during sign-in: " + error.message);
             });
     } else {
         // Sign Up
-        auth.createUserWithEmailAndPassword(email, password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then(userCredential => {
-                window.location.href = "index.html"; // Redirect to main page
+                // Redirect to the main page
+                window.location.href = "../html/index.html"; // Ensure this path is correct
             })
             .catch(error => {
                 console.error("Error during sign-up:", error.message);
+                alert("Error during sign-up: " + error.message);
             });
     }
 });
@@ -48,3 +55,12 @@ function toggleForm() {
     }
     isSignIn = !isSignIn;
 }
+
+// Optional: Check if the user is already logged in
+onAuthStateChanged(auth, user => {
+    if (user) {
+        console.log("User is logged in:", user.email);
+    } else {
+        console.log("No user is logged in");
+    }
+});
